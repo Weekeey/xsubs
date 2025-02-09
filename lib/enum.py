@@ -14,31 +14,8 @@ from termcolor import colored
 from concurrent.futures import ThreadPoolExecutor
 
 
-DEFAULT_OUTPUT_RESULT = f'{os.getcwd ()}/result/'
-CONFIGURATION_FILE = "/config/config.json"
-
-BANNER =  '''
-   /gg\           /gg
-  /g.gg\         /gg.g\ 
- |gg..gg\       /gg..gg| 
- |gg...g|       |g...gg| 
- |gg...g|       |g...gg| 
-  \gg..g/       \g..gg/ 
-   |gg.gvgggggggvg.gg| 
-  /ggggggggggggggggggg\ 
- /gggg(((ggggggg)))gggg\ 
-|ggggg....ggggg....ggggg| 
-|ggggg....ggggg....ggggg| 
-|ggcccgggg\___/ggggcccgg| 
-|ggcccccgggg|ggggcccccgg| 
-  \gcccggg\---/gggcccg/ 
-     \ggggggggggggg/
-'''
-
-
-
 class Xsubs :
-    def __init__ (self, conf_file, domain,wordlist=None,  list_domains=None, output_path=DEFAULT_OUTPUT_RESULT):
+    def __init__ (self, conf_file, domain,wordlist=None,  list_domains=None, output_path=None):
         self.conf_file = conf_file
         self.wordlist = wordlist
         self.domain = domain
