@@ -1,9 +1,9 @@
-from lib import Status
-from lib import Subs_enum
+from lib.status import *
+from lib.enum import *
 
 
 ''' ?????????? '''
 
 
 
-
+print ('PLEASE WORK')
