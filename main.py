@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 DEFAULT_OUTPUT_RESULT = f'{os.getcwd ()}/result/'
-CONFIGURATION_FILE = "config.json"
+CONFIGURATION_FILE = "/config/config.json"
 BANNER =  '''
    /gg\           /gg
   /g.gg\         /gg.g\ 
