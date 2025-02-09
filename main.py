@@ -16,12 +16,24 @@ from concurrent.futures import ThreadPoolExecutor
 
 DEFAULT_OUTPUT_RESULT = f'{os.getcwd ()}/result/'
 CONFIGURATION_FILE = "config.json"
-BANNER =  """
- _ _| \  ___ _ _| |_ ___ 
-|_'_|\ \|_ -| | | . |_ -|
-|_,_| \_|___|___|___|___|
-Weekey!@github
-"""
+BANNER =  '''
+   /gg\           /gg
+  /g.gg\         /gg.g\ 
+ |gg..gg\       /gg..gg| 
+ |gg...g|       |g...gg| 
+ |gg...g|       |g...gg| 
+  \gg..g/       \g..gg/ 
+   |gg.gvgggggggvg.gg| 
+  /ggggggggggggggggggg\ 
+ /gggg(((ggggggg)))gggg\ 
+|ggggg....ggggg....ggggg| 
+|ggggg....ggggg....ggggg| 
+|ggcccgggg\___/ggggcccgg| 
+|ggcccccgggg|ggggcccccgg| 
+  \gcccggg\---/gggcccg/ 
+     \ggggggggggggg/
+'''
+
 
 
 class Xsubs :
@@ -45,9 +57,19 @@ class Xsubs :
     def check_file (self):
 
         if os.path.isfile (self.final_output):
-            answer = input (colored('(+) ', 'blue')+ "Delete Oldest File (N/y) >")
+            answer = input (colored('(+) ', 'blue')+ "Delete Oldest File (N/y) > ")
             if answer == 'y' or answer == 'Y':
                 os.remove (self.final_output)
+
+    def remove_duplicates_inplace(self, file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+
+        unique_sorted_lines = sorted(set(lines))
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.writelines(unique_sorted_lines)
+
 
 
 
@@ -59,29 +81,10 @@ class Xsubs :
             print (colored ('(+} ', 'blue') + f'Folder was created {self.output_path}')
         else : print (colored ('(+} ', 'blue') +'Folder already exist')
     
-    def count_lines_in_file(file_path):
-        last_count = 0
-        while True:
-            try:
-                with open(file_path, "r") as f:
-                    lines = f.readlines()
-                    count = len(lines)
-                    
-                    if count != last_count:  # Update only if count changes
-                        sys.stdout.write(f"\r> Number of subdomains : {count} ")
-                        sys.stdout.flush()
-                        last_count = count
-    
-            except FileNotFoundError:
-                sys.stdout.write("\r> Waiting for file... ")
-                sys.stdout.flush()
-    
-            time.sleep(1)  # Adjust delay as needed
-
-
-
-
-
+    def count_lines(self, file_path):
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            return len(lines)
 
     def run_tools (self):
         
@@ -89,6 +92,7 @@ class Xsubs :
         TOOLS_COMMAND = [
                 ['subfinder','-d',self.domain,'-silent','-o', self.final_output],
                 ['assetfinder', '-subs-only', self.domain ,'>', self.final_output]
+                
         ]
         try : 
             self.check_folder ()
@@ -101,15 +105,21 @@ class Xsubs :
 
         except FileNotFoundError as e :
             print ("Error : make sure sunfinder and assetfinder are installed and accessible") 
-            return []
         except Exception as e :
             print (f"An error occurred : {e}")
 
-        return list(subdomains)
+        print (colored ("(~) ", 'yellow')+ 'Subdomains Founded > ' + colored (f'{self.count_lines(self.final_output)}', 'yellow'))
     
 
 if __name__ == "__main__":
     print (colored(BANNER, 'cyan'))
     xsubs = Xsubs (CONFIGURATION_FILE, "edunet.tn")
     xsubs.run_tools ()
+
+
+
+
+
+
+
 
