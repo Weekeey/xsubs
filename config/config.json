@@ -1,8 +1,12 @@
 
 {
 
-  "output" :{
-    "filename": "output"
+  "files" :{
+    "output_directory_name": "output"
+  },
+  "tools" : {
+    "subfinder" : "subfinder",
+    "assetfinder" : "assetfinder"
   }
 
 
